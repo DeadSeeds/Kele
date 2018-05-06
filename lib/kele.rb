@@ -18,6 +18,9 @@ class Kele
     else
       p "Authorization received. Auth_token is: #{auth_token}"
     end
+
+    get_me
+
   end
 
   def get_me
