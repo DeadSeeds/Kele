@@ -1,8 +1,10 @@
 require 'httparty'
 require 'json'
+require_relative 'roadmap'
 
 class Kele
   include HTTParty
+  include Roadmap
 
   def initialize(username, password)
 
@@ -27,15 +29,12 @@ class Kele
     response = self.class.get("#{@bloc_session}/users/me", headers: { "authorization" => @auth_token })
     bloc_response_hash = JSON.parse("#{response}")
     p "mentor_id = " + "#{bloc_response_hash["current_enrollment"]["mentor_id"]}"
+    p "chain_id = " + "#{bloc_response_hash["current_enrollment"]["chain_id"]}"
   end
 
   def get_mentor_availability(id)
     response = self.class.get("#{@bloc_session}/mentors/" + "#{id}" + "/student_availability", headers: { "authorization" => @auth_token })
     mentor_avail = JSON.parse("#{response}")
-    # mentor_array = []
-    # mentor_avail.each do |day|
-    #   mentor_array << day.to_a
-    # end
   end
 
 end
